@@ -1,6 +1,6 @@
 # ChestColours
 
-Matches the Gorillas chest to your current colour
+Matches the Gorillas chest to your current colourn (might do it for every play i duno yet)
 
 ![image](https://user-images.githubusercontent.com/82724623/170614047-c1c6573e-f580-4618-b919-902529327387.png)
 
