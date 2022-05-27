@@ -12,4 +12,4 @@ It will stay as the same colour you are when the game started but I say this is 
 
 
 
-(i feel a little bad for relaseing this since it's literly one line of code but hey, someone may want it and not know how to code, youtubers if you are gona review it do it as a short or a tiktok)
+(i feel a little bad for relaseing this since it's literly two lines of code but hey, someone may want it and not know how to code, youtubers if you are gona review it do it as a short or a tiktok)
