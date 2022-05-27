@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using System;
 using UnityEngine;
 using Utilla;
@@ -38,12 +38,12 @@ namespace ChestColours
 
         void OnGameInitialized(object sender, EventArgs e)
         {
-            /* Code here runs after the game initializes (i.e. GorillaLocomotion.Player.Instance != null) */
+            GameObject.Find("gorillachest").GetComponent<MeshRenderer>().material = Resources.Load<Material>("objects/treeroom/materials/darkfur 1");
         }
 
         void Update()
         {
-            /* Code here runs every frame when the mod is enabled */
+            GameObject.Find("GorillaParent/GorillaVRRigs/Gorilla Player Networked(Clone)/rig/body/gorillachest").SetActive(false);
         }
 
         /* This attribute tells Utilla to call this method when a modded room is joined */
