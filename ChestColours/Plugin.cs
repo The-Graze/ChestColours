@@ -1,4 +1,5 @@
 using BepInEx;
+using Photon.Pun;
 using System;
 using UnityEngine;
 using Utilla;
@@ -43,7 +44,10 @@ namespace ChestColours
 
         void Update()
         {
-            GameObject.Find("GorillaParent/GorillaVRRigs/Gorilla Player Networked(Clone)/rig/body/gorillachest").SetActive(false);
+            if (PhotonNetwork.InRoom)
+            {
+                GameObject.Find("GorillaParent/GorillaVRRigs/Gorilla Networked(Clone)/rig/body/gorillachest").SetActive(false);
+            }
         }
 
         /* This attribute tells Utilla to call this method when a modded room is joined */
