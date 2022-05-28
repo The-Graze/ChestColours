@@ -6,7 +6,7 @@ using Utilla;
 namespace ChestColours
 {
     [ModdedGamemode]
-    [BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
+    [BepInDependency("org.legoandmars.gorillatag.utilla", "1.6.4")]
     [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
     public class Plugin : BaseUnityPlugin
     {
@@ -39,16 +39,6 @@ namespace ChestColours
                 if (onlineChest.activeSelf) onlineChest.SetActive(false);
             }
             if(GameObject.Find("gorillachest").GetComponent<MeshRenderer>().material != localRig.mainSkin.material) GameObject.Find("gorillachest").GetComponent<MeshRenderer>().material = localRig.mainSkin.material;
-        }
-
-        public void OnJoin()
-        {
-            localRig = GorillaTagger.Instance.myVRRig;
-        }
-
-        public void OnLeave()
-        {
-            localRig = GameObject.Find("OfflineVRRig/Actual Gorilla").GetComponent<VRRig>();
         }
     }
 }
