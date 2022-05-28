@@ -3,67 +3,52 @@ using System;
 using UnityEngine;
 using Utilla;
 
-namespace ChestColours
+namespace ChestMatMatcher
 {
-    /// <summary>
-    /// This is your mod's main class.
-    /// </summary>
-
-    /* This attribute tells Utilla to look for [ModdedGameJoin] and [ModdedGameLeave] */
     [ModdedGamemode]
     [BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
     [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
     public class Plugin : BaseUnityPlugin
     {
-        bool inRoom;
+        Material startChestMat;
+        VRRig localRig;
 
         void OnEnable()
         {
-            /* Set up your mod here */
-            /* Code here runs at the start and whenever your mod is enabled*/
-
             HarmonyPatches.ApplyHarmonyPatches();
-            Utilla.Events.GameInitialized += OnGameInitialized;
+            Events.GameInitialized += OnGameInitialized;
         }
 
         void OnDisable()
         {
-            /* Undo mod setup here */
-            /* This provides support for toggling mods with ComputerInterface, please implement it :) */
-            /* Code here runs whenever your mod is disabled (including if it disabled on startup)*/
-
             HarmonyPatches.RemoveHarmonyPatches();
-            Utilla.Events.GameInitialized -= OnGameInitialized;
+            GameObject.Find("gorillachest").GetComponent<MeshRenderer>().material = startChestMat;
         }
 
         void OnGameInitialized(object sender, EventArgs e)
         {
-            GameObject.Find("gorillachest").GetComponent<MeshRenderer>().material = Resources.Load<Material>("objects/treeroom/materials/darkfur 1");
+            startChestMat = GameObject.Find("gorillachest").GetComponent<Renderer>().material;
+            localRig = GameObject.Find("OfflineVRRig/Actual Gorilla").GetComponent<VRRig>();
         }
 
-        void Update()
+        void FixedUpdate()
         {
-            GameObject.Find("GorillaParent/GorillaVRRigs/Gorilla Player Networked(Clone)/rig/body/gorillachest").SetActive(false);
+            if (Photon.Pun.PhotonNetwork.CurrentRoom != null)
+            {
+                GameObject onlineChest = GameObject.Find("GorillaParent/GorillaVRRigs/Gorilla Player Networked(Clone)/rig/body/gorillachest");
+                if (onlineChest.activeSelf) onlineChest.SetActive(false);
+            }
+            if(GameObject.Find("gorillachest").GetComponent<MeshRenderer>().material != localRig.mainSkin.material) GameObject.Find("gorillachest").GetComponent<MeshRenderer>().material = localRig.mainSkin.material;
         }
 
-        /* This attribute tells Utilla to call this method when a modded room is joined */
-        [ModdedGamemodeJoin]
-        public void OnJoin(string gamemode)
+        public void OnJoin()
         {
-            /* Activate your mod here */
-            /* This code will run regardless of if the mod is enabled*/
-
-            inRoom = true;
+            localRig = GorillaTagger.Instance.myVRRig;
         }
 
-        /* This attribute tells Utilla to call this method when a modded room is left */
-        [ModdedGamemodeLeave]
-        public void OnLeave(string gamemode)
+        public void OnLeave()
         {
-            /* Deactivate your mod here */
-            /* This code will run regardless of if the mod is enabled*/
-
-            inRoom = false;
+            localRig = GameObject.Find("OfflineVRRig/Actual Gorilla").GetComponent<VRRig>();
         }
     }
 }
