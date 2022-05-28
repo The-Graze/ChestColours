@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using Utilla;
 
-namespace ChestMatMatcher
+namespace ChestColours
 {
     [ModdedGamemode]
     [BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
